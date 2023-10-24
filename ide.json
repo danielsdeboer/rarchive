@@ -1,0 +1,14 @@
+{
+  "view": {
+    "paths": [
+      {
+        "namespace": "",
+        "path": "resources/pages"
+      },
+      {
+        "namespace": "",
+        "path": "resources/templates"
+      }
+    ]
+  }
+}
