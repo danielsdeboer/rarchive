@@ -10,11 +10,8 @@ class Size implements Stringable
     /**
      * @throws \Exception
      */
-    public function __construct(private readonly string $bytes)
+    public function __construct(private readonly string|null $bytes)
     {
-        if ($this->bytes < 0) {
-            throw new Exception('Size cannot be negative');
-        }
     }
 
     /**
@@ -22,22 +19,25 @@ class Size implements Stringable
      */
     public function __toString(): string
     {
-        if ($this->bytes < 1024) {
-            return sprintf('%sB', $this->bytes);
-        }
-
-        if ($this->bytes < 1024 ** 2) {
-            return sprintf('%sKB', round($this->bytes / 1024, 2));
-        }
-
-        if ($this->bytes < 1024 ** 3) {
-            return sprintf('%sMB', round($this->bytes / 1024 ** 2, 2));
-        }
-
-        if ($this->bytes < 1024 ** 4) {
-            return sprintf('%sGB', round($this->bytes / 1024 ** 3, 2));
-        }
-
-        return sprintf('%sTB', round($this->bytes / 1024 ** 4, 2));
+        return match (true) {
+            $this->bytes === null => 'n/a',
+            $this->bytes < 1024 => sprintf('%sB', $this->bytes),
+            $this->bytes < 1024 ** 2 => sprintf(
+                '%sKB',
+                round($this->bytes / 1024, 2),
+            ),
+            $this->bytes < 1024 ** 3 => sprintf(
+                '%sMB',
+                round($this->bytes / 1024 ** 2, 2),
+            ),
+            $this->bytes < 1024 ** 4 => sprintf(
+                '%sGB',
+                round($this->bytes / 1024 ** 3, 2),
+            ),
+            default => sprintf(
+                '%sTB',
+                round($this->bytes / 1024 ** 4, 2),
+            ),
+        };
     }
 }
