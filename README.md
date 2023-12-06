@@ -24,7 +24,7 @@ If you were to, hypothetically, stumble across a SQLite RARBG archive, you might
 
 Clone the project:
 ```
-clone
+git clone https://github.com/danielsdeboer/rarchive.git
 ```
 
 Create an .env file:
@@ -49,3 +49,7 @@ php artisan serve
 ```
 
 You can set it up with nginx or Apache if you wish.
+
+## License
+
+This project is open-source software licensed under the MIT License.

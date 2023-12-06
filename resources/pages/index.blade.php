@@ -67,6 +67,10 @@
           <td>
             <button type="submit">Search</button>
           </td>
+
+          <td>
+            <a href="{{ route('index') }}">Reset</a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -76,12 +80,12 @@
     <thead>
       <tr>
         <th>ID</th>
+        <th>Size</th>
+        <th>Magnet</th>
         <th>Title</th>
         <th>Added</th>
         <th>Category</th>
-        <th>Size</th>
         <th>IMDB</th>
-        <th>Magnet</th>
       </tr>
     </thead>
 
@@ -90,13 +94,21 @@
         <tr>
           <td>{{ $item->id }}</td>
 
+          <td>{{ $item->size }}</td>
+
+          <td>
+            <a href="{{ sprintf("magnet:?xt=urn:btih:%s", $item->hash) }}">
+              Magnet
+            </a>
+          </td>
+
           <td>{{ $item->title }}</td>
 
           <td>{{ $item->dt }}</td>
 
           <td>{{ $item->cat }}</td>
 
-          <td>{{ $item->size }}</td>
+
 
           <td>
             @if ($item->imdb)
@@ -108,11 +120,6 @@
               </a>
             @endif
           </td>
-
-          <td>
-            <a href="{{ sprintf("magnet:?xt=urn:btih:%s", $item->hash) }}">
-              Magnet
-            </a>
         </tr>
       @empty
         <tr>
